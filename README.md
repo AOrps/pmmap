@@ -6,11 +6,13 @@
 
 ```s
 .
-└── r2     ; r2 / radare2
+├── emacs  		; emacs
+└── r2     		; r2 / radare2
 
 ```
 
 ## :warning: Disclaimer
+- Personal Notes on how-to-tool, accuracy might not 100% up-to-scruff
 
 ---
 
