@@ -37,4 +37,39 @@ qemu-system-x86_64 -enable-kvm -boot menu=on \
 
 
 ## Snapshot
-TODO
+### Listing Snapshots
+```bash
+# Template
+# qemu-img snapshot -l <IMAGE>
+
+qemu-img snapshot -l obsd.img
+```
+
+
+### Adding a snapshot
+```bash
+# Template
+# qemu-img snapshot -c <SNAPSHOT> <IMAGE>
+
+qemu-img snapshot -c snap1 obsd.img
+```
+
+### Reverting to a Snapshot
+```bash
+# Template
+# qemu-img snapshot -a <SNAPSHOT> <IMAGE>
+
+qemu-img snapshot -a snap1 obsd.img
+```
+
+### Deleting a Snapshot
+```bash
+# Template
+# qemu-img snapshot -d <SNAPSHOT> <IMAGE>
+
+qemu-img snapshot -d snap1 obsd.img
+```
+
+
+## Replaying/Recording
+- `-icount` is not allowed with hardward virtualization, thus `-enable-kvm` flag (to boost speed) can't be invoked
