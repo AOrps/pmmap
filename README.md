@@ -6,13 +6,15 @@
 
 ```s
 .
-├── emacs  		; emacs
-└── r2     		; r2 / radare2
+├── bash-buffoonery         ; useful bash commands (how to do certain things )
+├── emacs  					; emacs shortcuts
+├── qemu                    ; qemu commands and tips
+└── r2     					; r2 / radare2 stuff
 
 ```
 
 ## :warning: Disclaimer
-- Personal Notes on how-to-tool, accuracy might not 100% up-to-scruff
+- Personal Notes on how-to-<tool>, accuracy might not 100% up-to-scruff
 
 ---
 
