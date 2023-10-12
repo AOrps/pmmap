@@ -17,7 +17,7 @@
 | `C-x 2`  | Vertical Split screens (windows)
 | `C-x 3`  | Horizontal Split screens (windows)
 | `C-x 0`  | Exit screens (windows)
-
+| `M-^1` \ `M-!` | Shell command
 
 ### Bonus
 - Other Packages
