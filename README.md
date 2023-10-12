@@ -1,5 +1,5 @@
 # pmmap
-- Personal Mind Map, aka ramp-up doc on certain functionality
+- :brain: Personal Mind Map, aka ramp-up doc on certain functionality
 
 
 ## :card_file_box: Directory Explanation
