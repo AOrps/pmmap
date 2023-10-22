@@ -28,3 +28,12 @@
 | Shortcut | Package | Functionality |
 | :----:   | :-----: | :--------
 | `C-M-i`  | eglot   | Completion-at-point (tries to autofill code)
+
+    
+## Commands
+
+| Functions | Description 
+| :------:  | :------
+| `(local-set-key KEY COMMAND)` | Binds a key to a local keymap used by the active buffer
+| `(describe-keymap ...)` | check existing keybinds
+| `(term ...)` | open terminal in emacs
