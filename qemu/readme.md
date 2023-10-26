@@ -70,6 +70,14 @@ qemu-img snapshot -a snap1 obsd.img
 qemu-img snapshot -d snap1 obsd.img
 ```
 
+### Resizing an image
+```bash
+# template
+# qemu-img resize <img> <new_size>
+
+qemu-img resize obsd.img 30G
+```
+
 
 ## Replaying/Recording
 - `-icount` is not allowed with hardward virtualization, thus `-enable-kvm` flag (to boost speed) can't be invoked
