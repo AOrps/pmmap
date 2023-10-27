@@ -78,6 +78,32 @@ qemu-img snapshot -d snap1 obsd.img
 qemu-img resize obsd.img 30G
 ```
 
+## Networking
+
+```bash
+qemu-system-x86_64 -enable-kvm -boot menu=on \
+		   -drive file=obsd.img -m 8G -vga virtio \
+		   -usb -device usb-tablet \
+		   -display sdl,gl=on \
+           -device e1000,netdev=net0 \ 
+           -netdev user,id=net0,hostfwd=tcp::5555-:22
+           
+# To Connect, ensure the vm has ssh service on and then you can ssh into the qemu vm:
+# > ssh <qemu-user>@localhost -p 5555
+```
+
+
+
+
+
+- By default, the gateway router is the host machine 
+
+
+### To list supported NIC models
+```bash
+qemu-system-x86_64 -nic model=help
+```
+
 
 ## Replaying/Recording
 - `-icount` is not allowed with hardward virtualization, thus `-enable-kvm` flag (to boost speed) can't be invoked
