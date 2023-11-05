@@ -126,7 +126,17 @@ ctrl+alt+1
 
 (qemu) info snapshots
 
-# 
+# Create new snapshots
+# template:
+# (qemu) savevm <name>
+
+(qemu) savevm new-test
+
+# Load snapshots
+# template:
+# (qemu) loadvm <name>
+
+(qemu) loadvm new-test
 
 ```
 
