@@ -104,6 +104,46 @@ qemu-system-x86_64 -enable-kvm -boot menu=on \
 qemu-system-x86_64 -nic model=help
 ```
 
+## Qemu Monitor
+
+### Sending Keys to VM
+- Sometimes you might need to send keys to the computer for certain functionality, it must be done via `compatmonitor0`
+```keys
+ctrl+alt+2
+
+# ctrl-alt+f2 at login (on *nix), will force someone to work with terminal/text-based login/tty thing
+# Within `compatmonitor0`, type:
+(qemu) sendkey ctrl+alt+f2
+
+# To switch back to `virtio-vga`, do:
+ctrl+alt+1
+```
+
+### Snapshots
+
+```keys
+# Check existing snapshots
+
+(qemu) info snapshots
+
+# Create new snapshots
+# template:
+# (qemu) savevm <name>
+
+(qemu) savevm new-test
+
+# Load snapshots
+# template:
+# (qemu) loadvm <name>
+
+(qemu) loadvm new-test
+
+```
+
+- Reference: https://wiki.qemu.org/Features/SnapshottingImprovements
+
+
+
 
 ## Replaying/Recording
 - `-icount` is not allowed with hardward virtualization, thus `-enable-kvm` flag (to boost speed) can't be invoked
