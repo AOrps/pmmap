@@ -9,3 +9,5 @@
 - Latest Gambit Docs: https://gambitscheme.org/latest/manual/#The-define_002dlibrary-form
 - Teach Yourself Scheme in Fixnum Days: https://docs.scheme.org/tyscheme/index-Z-H-1.html#TAG:__tex2page_toc
 - A Scheme Example library that works with r7rs: https://github.com/pseudomata/scm-example-library
+- Wikibooks: https://en.wikibooks.org/wiki/Scheme_Programming/Libraries
+- Scheme Docs: https://docs.scheme.org/
