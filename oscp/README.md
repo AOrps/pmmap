@@ -14,3 +14,7 @@
 - I have [smol grug brain](https://grugbrain.dev/) and I wanted to keep track of what I am learning
 
 
+## Other Resources
+- https://github.com/xsudoxx/OSCP
+- https://github.com/0xsyr0/OSCP#basics
+- https://github.com/0x4D31/awesome-oscp
