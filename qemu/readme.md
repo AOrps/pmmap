@@ -143,7 +143,29 @@ ctrl+alt+1
 - Reference: https://wiki.qemu.org/Features/SnapshottingImprovements
 
 
+## Device Passthrough 
 
+### USB stick
+
+- First check `lsusb`, `usbdevs` on openbsd. Might look something like this:
+```
+Bus 001 Device 003: ID 1111:aaaa -------- SOMETHING ---------
+Bus 002 Device 004: ID 2222:cccc -------- SOMETHING ---------
+Bus 002 Device 054: ID 3333:dddd          USB DISK
+Bus 003 Device 123: ID 4444:ffff -------- SOMETHING ---------
+
+```
+
+
+```
+
+qemu-system-x86_64 -enable-kvm -boot menu=on \
+		   -drive file=obsd.img -m 8G -vga virtio \
+		   -usb -device usb-tablet \
+		   -display sdl,gl=on \
+           
+
+```
 
 ## Replaying/Recording
 - `-icount` is not allowed with hardward virtualization, thus `-enable-kvm` flag (to boost speed) can't be invoked
