@@ -20,3 +20,11 @@ echo "
 - `cat -b` to enumerate the numbers there
 - `sort -n -k2 -r` reverse sort (highest first) at second field (`-k2`) on numeric values (`-n`)
 - `cat -b` to enumerate the line there
+
+## ipv4 address on oneline with with `ip`
+```bash
+# template
+# ip -f[amily] inet -o[neline] addr show <ifname>
+
+ip -f inet -o addr show eth0
+```
