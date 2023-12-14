@@ -37,3 +37,13 @@
 | `(local-set-key KEY COMMAND)` | Binds a key to a local keymap used by the active buffer
 | `(describe-keymap ...)` | check existing keybinds
 | `(term ...)` | open terminal in emacs
+
+
+## Changing Dired to display by type
+
+### Manual
+- after pressing: `C-u s`, type `-alS` (based on `ls`)
+
+
+### reference:
+- https://stackoverflow.com/questions/27378909/how-to-sort-files-in-emacs-dired
