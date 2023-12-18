@@ -21,6 +21,7 @@
 | `C-x 0`  | Exit screens (windows)
 | `M-^1` or `M-!` | Shell command
 | `M-x` | Emacs Command Invoker
+| `M-/` | Dabbrev-expand: Naive word completion
 
 - To do the opposite of some commands try to do `C--`, this works to 'negate' commands
 
