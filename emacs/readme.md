@@ -6,6 +6,13 @@
 | `M`    | ALT
 | `^`    | Shift
 
+## Top Tier Productivity Packages
+| Package | Reason
+| :------ | :------
+| eglot   | client lsp
+| company | auto-complete
+
+
 ## Shortcuts
 
 ### Vanilla
@@ -36,7 +43,8 @@
 | Shortcut | Package | Functionality |
 | :----:   | :-----: | :--------
 | `C-M-i`  | eglot   | Completion-at-point (tries to autofill code)
-
+| `C-n`    | company | Next selection at auto-complete scroll
+| `C-p`    | company | Previous selection at auto-complete scroll
     
 ## Commands
 
