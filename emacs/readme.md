@@ -33,6 +33,13 @@
 | `M-^1` or `M-!` | Shell command
 | `M-x` | Emacs Command Invoker
 | `M-/` | Dabbrev-expand: Naive word completion
+| `C-x b` | change buffer (small line)
+| `C-x C-b` | Change buffer (show menu in new buffer)
+| `C-x u` | Undo
+| `C-w`   | Destructive copy to clipboard
+| `M-w`   | Non-destructive Copy to clipboard
+| `C-y`   | Paste from Clipboard
+
 
 - To do the opposite of some commands try to do `C--`, this works to 'negate' commands
 
@@ -60,7 +67,7 @@
 | `(local-set-key KEY COMMAND)` | Binds a key to a local keymap used by the active buffer
 | `(describe-keymap ...)` | check existing keybinds
 | `(term ...)` | open terminal in emacs
-
+| `(list-packages)` | search available packages for emacs
 
 ## Changing Dired to display by type
 
