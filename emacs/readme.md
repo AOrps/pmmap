@@ -22,6 +22,7 @@
 | :----:   | :-----
 | `C-a`    | Jump to the beginning of the line (^)
 | `C-e`    | Jump to the end of the line ($)
+| `C-k`    | Cut at that point
 | `C-g`    | Cancel command
 | `C-x o`  | Switch between screens (windows)
 | `C-- C-x o`  | Switch between screens (windows) but the other way
