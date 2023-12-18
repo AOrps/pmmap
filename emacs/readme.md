@@ -24,6 +24,7 @@
 | `C-e`    | Jump to the end of the line ($)
 | `C-k`    | Cut at that point
 | `C-g`    | Cancel command
+| `C-s`    | search for text
 | `C-x o`  | Switch between screens (windows)
 | `C-- C-x o`  | Switch between screens (windows) but the other way
 | `C-x 2`  | Vertical Split screens (windows)
@@ -39,6 +40,9 @@
   - `C-c j`: line run (can switch between things) but can't use sysints or delete without mucking about
   - `C-c k`: char run (can't switch between things) but can use sysints (^C, ^L, ...) and delete
 
+- Within i-search, `C-s`:
+  - `C-s`: go to the end of next match
+  - `C-r`: go to the start of the previous match
 
 ### Bonusz
 - Other Packages
