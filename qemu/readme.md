@@ -104,6 +104,30 @@ qemu-system-x86_64 -enable-kvm -boot menu=on \
 qemu-system-x86_64 -nic model=help
 ```
 
+## Cores that VM can use
+- To check the number of cores, you can use the following commands:
+  - linux: `nproc`
+  - darwin, bsd: `sysctl -n hw.ncpu`
+  - other: getconf _NPROCESSORS_ONLN
+
+### Template
+```bash
+qemu-system-x86_64 -m <RAM_MEMORY_SIZE> -enable-kvm -cpu <CPU>  -smp <CORES> -drive file=<IMAGE_NAME> -cdrom <DISTRO_ISO_FILE> -boot order=d -display sdl,gl=on
+```
+
+### Example 
+```bash
+qemu-system-x86_64 -m 1G -enable-kvm -cpu host -smp 4 -drive file=obsd.img -cdrom openbsd-install73.iso -boot order=d -display sdl,gl=on
+
+# alternatively can use something like this
+qemu-system-x86_64 -m 1G -enable-kvm -cpu host -smp $(echo "$(nproc)//2" | bc | cut -d'.' -f1) -drive file=obsd.img -cdrom openbsd-install73.iso -boot order=d -display sdl,gl=on
+```
+
+
+### Resources
+- https://stackoverflow.com/questions/45181115/portable-way-to-find-the-number-of-processors-cpus-in-a-shell-script
+
+
 ## Qemu Monitor
 
 ### Sending Keys to VM
