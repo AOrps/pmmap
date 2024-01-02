@@ -2,7 +2,9 @@
 
 ## afl
 
-### 
+### Tool afl Utilies
+- `afl-gotcpu`: checks cpus available
+- `afl-whatsup`: status checker for afl-fuzz (check processes)
 
 
 ### Workflow
