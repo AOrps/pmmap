@@ -65,7 +65,8 @@ afl-fuzz -i <TEST_CASES> -o <OUTPUT> -S fuzzer04 -- <BINARY> <BINARY_OPTIONS> @@
   - `-t <MILLISECONDS>` : timeout for each run
 
 ### Triage the findings
-
+- Compile without afl, and run test case with 'normal compile'
+- GDB with [exploitable](https://github.com/jfoote/exploitable)
 
 
 ### Optimizations
