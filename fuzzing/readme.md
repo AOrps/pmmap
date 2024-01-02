@@ -2,6 +2,9 @@
 
 ## afl
 
+### 
+
+
 ### Workflow
 ```mermaid
 # TODO
@@ -15,7 +18,9 @@
 
 ### Installation
 - Debian/Ubuntu:
-  - `apt install -y afl`
+  - BASE: `afl`
+  - EXTRA: `git`,`gdb`,`llvm`,`python3`,`python3-venv`,`screen`
+  - Full Command :`sudo apt install -y afl gdb git llvm python3 python3-venv screen`
 
 
 ### Compilation
@@ -59,6 +64,15 @@ afl-fuzz -i <TEST_CASES> -o <OUTPUT> -S fuzzer04 -- <BINARY> <BINARY_OPTIONS> @@
 ```
 - Need to use the same `<OUTPUT>` in Multi-core mode
 
+
+```bash
+# to fully leverage and best ui for afl-multicore fuzzer,
+# example:
+screen -dmS fuzz01 /bin/bash -c "afl-fuzz -i ./corpus -o ./output -M fuzz01 -- ./simple @@"
+screen -dmS fuzz01 /bin/bash -c "afl-fuzz -i ./corpus -o ./output -S fuzz02 -- ./simple @@"
+screen -dmS fuzz01 /bin/bash -c "afl-fuzz -i ./corpus -o ./output -S fuzz03 -- ./simple @@"
+screen -dmS fuzz01 /bin/bash -c "afl-fuzz -i ./corpus -o ./output -S fuzz04 -- ./simple @@"
+```
 
 - Fuzzer Options:
   - `-m <MEGABYTES>` : max memory usage
