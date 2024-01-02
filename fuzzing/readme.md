@@ -31,6 +31,13 @@ make
 - `AFL_HARDEN` : adds code hardening
 - `AFL_INST_RATIO` : instrumentation ratio 
 
+| Binary | Environment 
+| :---   | :----
+| `afl-gcc`/`afl-g++` | gcc
+| `afl-clang`/`afl-clang++` | Clang
+| `afl-clang-fast`/`afl-clang-fast++` | LLVM
+
+
 ### Finding a test corpus
 - Use files from unit/integration tests
   - Look for source code repo/github/sample folders
