@@ -95,6 +95,22 @@ screen -dmS fuzz04 /bin/bash -c "afl-fuzz -i ./corpus -o ./output -S fuzz04 -- .
 - GDB with [exploitable](https://github.com/jfoote/exploitable)
 
 
+The best way, that I have discovered to triage is to use: [AFLTriage](https://github.com/quic/AFLTriage). It requires cargo to compile it. Here is an example of usage:
+
+```bash
+# template
+./target/debug/afltriage -i <FUZZ_CRASH_DIR> -o <OUT_DIR> <TARGET_BINARY>
+
+# example
+## double-check on conventional binary
+./target/debug/afltriage --stdin -i ~/project/fuzz/out/fuzzNum/crashes/id\:0000* -o project-fuzz-report ~/project/build/proj-bin
+
+## better analyzing on the crash via afl
+./target/debug/afltriage --stdin -i ~/project/fuzz/out/fuzzNum/crashes/id\:0000* -o project-fuzz-report ~/project/afl-build/proj-bin
+```
+1. Double check that the
+1. After the double-check, run the 
+
 ### Optimizations
 - Minimize the list of the cases (CORPUS)
 ```bash
