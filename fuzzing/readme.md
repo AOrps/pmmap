@@ -51,6 +51,13 @@ make
 
 - Look at [Optimizations](#Optimizations) for optimizations on the corpus
 
+```bash
+# for a generic corpus in *nix based systems
+for i in {0..4}; do dd if=/dev/urandom of=seed_$i bs=64 count=10; done
+# create 5 seeds of random data
+```
+
+
 ### Run the fuzzer
 ```bash
 # Generic Usage
