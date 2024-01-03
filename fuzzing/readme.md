@@ -11,6 +11,7 @@
 ```mermaid
 # TODO
 ```
+1. Organization
 1. Compile binary with AFL
 1. Find a test corpus
 1. Run the fuzzer
@@ -24,8 +25,27 @@
   - EXTRA: `git`,`gdb`,`llvm`,`python3`,`python3-venv`,`screen`
   - Full Command :`sudo apt install -y afl gdb git llvm python3 python3-venv screen`
 
+### Organization
+- Before fuzzing, I like to organize the repo by doing the following
+```bash
+$ mkdir build afl-build fuzz corpus
+```
 
-### Compilation
+| Directory | Explanation
+| :------   | :---------
+| build     | Normal / Convention Build (no AFL)
+| afl-build | AFL built binary
+| fuzz      | Place where I put a shell-script that is responsible for setting up the pipeline where I fuzz the project
+| corpus    | Corpus (Place to put the seeds that will potentially get mutated)
+
+
+- I like to build the project binary without AFL for 2 reasons:
+  - If I can't compile the binary regularly, it might be a more ambitious adventure that I have bandwidth for
+  - I want to ensure that if a crash is found, I can reproduce it without instrumentation
+
+- the `fuzz` directory is a bit superfluous, if you know have a pretty OG afl setup, a simple shell script with process is sufficient
+
+### Compilation (Compile binary with AFL)
 ```bash
 export CC=afl-clang-fast
 export CXX=afl-clang-fast++
@@ -94,6 +114,22 @@ screen -dmS fuzz04 /bin/bash -c "afl-fuzz -i ./corpus -o ./output -S fuzz04 -- .
 - Compile without afl, and run test case with 'normal compile'
 - GDB with [exploitable](https://github.com/jfoote/exploitable)
 
+
+The best way, that I have discovered to triage is to use: [AFLTriage](https://github.com/quic/AFLTriage). It requires cargo to compile it. Here is an example of usage:
+
+```bash
+# template
+./target/debug/afltriage -i <FUZZ_CRASH_DIR> -o <OUT_DIR> <TARGET_BINARY>
+
+# example
+## double-check on conventional binary
+./target/debug/afltriage --stdin -i ~/project/fuzz/out/fuzzNum/crashes/id\:0000* -o project-fuzz-report ~/project/build/proj-bin
+
+## better analyzing on the crash via afl
+./target/debug/afltriage --stdin -i ~/project/fuzz/out/fuzzNum/crashes/id\:0000* -o project-fuzz-report ~/project/afl-build/proj-bin
+```
+1. Double-check that crash still exists on conventional binary
+1. After the double-check, run afltriage on the afl compiled binary for better analysis
 
 ### Optimizations
 - Minimize the list of the cases (CORPUS)
