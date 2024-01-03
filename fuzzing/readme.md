@@ -108,8 +108,8 @@ The best way, that I have discovered to triage is to use: [AFLTriage](https://gi
 ## better analyzing on the crash via afl
 ./target/debug/afltriage --stdin -i ~/project/fuzz/out/fuzzNum/crashes/id\:0000* -o project-fuzz-report ~/project/afl-build/proj-bin
 ```
-1. Double check that the
-1. After the double-check, run the 
+1. Double-check that crash still exists on conventional binary
+1. After the double-check, run afltriage on the afl compiled binary for better analysis
 
 ### Optimizations
 - Minimize the list of the cases (CORPUS)
