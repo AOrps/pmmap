@@ -33,11 +33,17 @@ $ mkdir build afl-build fuzz corpus
 
 | Directory | Explanation
 | :------   | :---------
-| build     |
-| afl-build |
-| fuzz      |
-| corpus    | 
+| build     | Normal / Convention Build (no AFL)
+| afl-build | AFL built binary
+| fuzz      | Place where I put a shell-script that is responsible for setting up the pipeline where I fuzz the project
+| corpus    | Corpus (Place to put the seeds that will potentially get mutated)
 
+
+- I like to build the project binary without AFL for 2 reasons:
+  - If I can't compile the binary regularly, it might be a more ambitious adventure that I have bandwidth for
+  - I want to ensure that if a crash is found, I can reproduce it without instrumentation
+
+- the `fuzz` directory is a bit superfluous, if you know have a pretty OG afl setup, a simple shell script with process is sufficient
 
 ### Compilation (Compile binary with AFL)
 ```bash
