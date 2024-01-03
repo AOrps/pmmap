@@ -11,6 +11,7 @@
 ```mermaid
 # TODO
 ```
+1. Organization
 1. Compile binary with AFL
 1. Find a test corpus
 1. Run the fuzzer
@@ -24,8 +25,21 @@
   - EXTRA: `git`,`gdb`,`llvm`,`python3`,`python3-venv`,`screen`
   - Full Command :`sudo apt install -y afl gdb git llvm python3 python3-venv screen`
 
+### Organization
+- Before fuzzing, I like to organize the repo by doing the following
+```bash
+$ mkdir build afl-build fuzz corpus
+```
 
-### Compilation
+| Directory | Explanation
+| :------   | :---------
+| build     |
+| afl-build |
+| fuzz      |
+| corpus    | 
+
+
+### Compilation (Compile binary with AFL)
 ```bash
 export CC=afl-clang-fast
 export CXX=afl-clang-fast++
