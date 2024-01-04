@@ -28,3 +28,62 @@ echo "
 
 ip -f inet -o addr show eth0
 ```
+
+## Connecting to wifi using `iwd` / `iwctl`
+
+### List networks around
+```bash
+iwctl station <interface> get-networks
+
+# ex
+iwctl station wlan0 get-networks
+```
+
+### Connect
+```bash
+iwctl station <interface> connect <ESSID> --passphrase <PASSWD>
+
+# ex
+iwctl station wlan0 connect arda --passphrase superhot
+```
+
+### Verify connection
+```bash
+iwctl staton <interface> show
+
+# ex:
+iwctl station wlan0 show
+```
+
+### Disconnecting from a network
+```bash
+iwctl station <interface> disconnect
+```
+
+### List known connections
+```bash
+iwctl known-networks list
+```
+
+### Forget a network
+```bash
+iwctl known-networks <ESSID> forget
+
+# ex:
+iwctl known-networks arda forget
+```
+
+### To see passwords of
+```bash
+# to list directory of known-networks creds
+ls /var/lib/iwd
+
+# to view creds of known-networks
+cat /var/lib/iwd/arda.psk
+```
+
+- Be sure to use a privileged user
+
+
+### Resources
+- https://linuxconfig.org/how-to-manage-wireless-connections-using-iwd-on-linux
