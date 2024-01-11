@@ -128,6 +128,7 @@ qemu-system-x86_64 -m 1G -enable-kvm -cpu host -smp $(echo "$(nproc)//2" | bc | 
 - https://stackoverflow.com/questions/45181115/portable-way-to-find-the-number-of-processors-cpus-in-a-shell-script
 
 
+
 ## Qemu Monitor
 
 ### Sending Keys to VM
