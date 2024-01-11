@@ -23,7 +23,7 @@ qemu-system-x86_64 -m <RAM_MEMORY_SIZE> -enable-kvm -drive file=<IMAGE_NAME> -cd
 ```bash
 qemu-system-x86_64 -m 1G -enable-kvm -drive file=obsd.img -cdrom openbsd-install73.iso -boot order=d -display sdl,gl=on
 ```
-- Need `-cdrom <ISO>` for Initial Boot into desired ISO.
+- Need `-cdrom <ISO>` for Initial Boot into desired iso
 
 
 ## Boot (after initial boot)
@@ -104,6 +104,31 @@ qemu-system-x86_64 -enable-kvm -boot menu=on \
 qemu-system-x86_64 -nic model=help
 ```
 
+## Cores that VM can use
+- To check the number of cores, you can use the following commands:
+  - linux: `nproc`
+  - darwin, bsd: `sysctl -n hw.ncpu`
+  - other: getconf _NPROCESSORS_ONLN
+
+### Template
+```bash
+qemu-system-x86_64 -m <RAM_MEMORY_SIZE> -enable-kvm -cpu <CPU>  -smp <CORES> -drive file=<IMAGE_NAME> -cdrom <DISTRO_ISO_FILE> -boot order=d -display sdl,gl=on
+```
+
+### Example 
+```bash
+qemu-system-x86_64 -m 1G -enable-kvm -cpu host -smp 4 -drive file=obsd.img -cdrom openbsd-install73.iso -boot order=d -display sdl,gl=on
+
+# alternatively can use something like this
+qemu-system-x86_64 -m 1G -enable-kvm -cpu host -smp $(echo "$(nproc)//2" | bc | cut -d'.' -f1) -drive file=obsd.img -cdrom openbsd-install73.iso -boot order=d -display sdl,gl=on
+```
+
+
+### Resources
+- https://stackoverflow.com/questions/45181115/portable-way-to-find-the-number-of-processors-cpus-in-a-shell-script
+
+
+
 ## Qemu Monitor
 
 ### Sending Keys to VM
@@ -143,7 +168,51 @@ ctrl+alt+1
 - Reference: https://wiki.qemu.org/Features/SnapshottingImprovements
 
 
+## Device Passthrough 
 
+### USB stick
+
+- First check `lsusb`, `usbdevs` on openbsd. Might look something like this:
+```
+Bus 001 Device 003: ID 1111:aaaa -------- SOMETHING ---------
+Bus 002 Device 004: ID 2222:cccc -------- SOMETHING ---------
+Bus 003 Device 054: ID 3333:dddd          USB DISK
+Bus 004 Device 123: ID 4444:ffff -------- SOMETHING ---------
+...
+```
+
+- Shell Script `usb-devices` provides a lot more in depth knowledge about usb devices connected (as well as drivers)
+
+
+- Let's say we want to pass-through the USB DISK, entry, the following might look like this:
+
+```bash
+# template 
+cat << 'EOF
+qemu-system-x86_64 -enable-kvm -boot menu=on \
+		   -drive file=obsd.img -m 8G -vga virtio \
+		   -display sdl,gl=on \
+           -drive if=none,id=stick,format=raw,file=<.IMG file path> \
+           -device nec-usb-xhci,id=xhci \
+           -device usb-storage,bus=xhci.0,drive=stick \
+           -usb -device usb-host,hostbus=<BUS ADDR>,hostaddr=<DEVICE ADDR>
+EOF
+
+qemu-system-x86_64 -enable-kvm -boot menu=on \
+		   -drive file=obsd.img -m 8G -vga virtio \
+		   -display sdl,gl=on \
+           -drive if=none,id=stick,format=raw,file=/tmp/miniroot74.img \
+           -device nec-usb-xhci,id=xhci \
+           -device usb-storage,bus=xhci.0,drive=stick \
+           -usb -device usb-host,hostbus=003,hostaddr=054
+
+```
+
+- Given that devices are at play here, one might need to use `sudo` or `doas` so it can read it from the host to the qemu vm
+
+- Reference:
+  - https://www.qemu.org/docs/master/system/devices/usb.html#connecting-usb-devices
+  - https://www.qemu.org/docs/master/system/devices/usb.html#ehci-controller-support
 
 ## Replaying/Recording
 - `-icount` is not allowed with hardward virtualization, thus `-enable-kvm` flag (to boost speed) can't be invoked
