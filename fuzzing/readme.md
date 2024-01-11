@@ -145,3 +145,8 @@ afl-tmin -i <TEST_CASE_FILE> -o <MINIMIZED_FILE> -- <BINARY> <OPTIONS TO BINARY>
 
 ### Resources
 - https://youtu.be/DFQT1YxvpDo?si=XeuTfIH6wVVxtDPg
+
+
+## [syzkaller](https://github.com/google/syzkaller)
+
+
