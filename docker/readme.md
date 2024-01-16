@@ -14,5 +14,6 @@ sudo systemctl restart docker
 sudo systemctl enable docker
 ```
 
+- **Note**: Sometimes docker still doesn't want to play nice so a `sudo reboot now` or computer restart should do the trick! 
 
 
