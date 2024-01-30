@@ -68,6 +68,10 @@
 | `(describe-keymap ...)` | check existing keybinds
 | `(term ...)` | open terminal in emacs
 | `(list-packages)` | search available packages for emacs
+| `(man ...)` | get man pages
+
+
+
 
 ## Changing Dired to display by type
 
