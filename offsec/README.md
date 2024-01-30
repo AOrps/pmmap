@@ -1,6 +1,6 @@
-# oscp reference
+# offsec (Offensive Security)
 
-| Typical Pentest Stages | @AOrps :fire: Sigma :money: Grindset :euro: OG :goat: GOATED :push_it: Stages :stairs: Explanation (and super-convoluted way of thinking of it) | Explanation
+| Typical Pentest Stages  |  Explanation | Explanation
 | :----:                  | :-------: | :-----
 | Defining the Scope      | :error:  | `v1` is just technical bits 
 | Information Gathering   | [enum.md](enum.md) | enumerate attack surface
