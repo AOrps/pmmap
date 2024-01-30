@@ -71,6 +71,24 @@
 | `(man ...)` | get man pages
 
 
+## Melpa
+
+### Installation 
+```lisp
+;; .emacs | init.el
+(require 'package)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
+```
+
+```elisp
+M-x package-refresh-contents
+```
+
+
+### reference
+- https://melpa.org/#/getting-started
+
 
 
 ## Changing Dired to display by type
