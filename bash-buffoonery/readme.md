@@ -85,5 +85,17 @@ cat /var/lib/iwd/arda.psk
 - Be sure to use a privileged user
 
 
+## Quick Total Bytes by type
+```sh
+find ~ -type f -exec wc -c {} \; | awk '{print $1}' | tr '\n' '+' | rev | cut -c1 --complement | rev | bc
+```
+- Get total bytes for type of file
+
+
+## Auto-push on current repo
+```sh
+git push origin $(git branch --show-current)
+```
+
 ### Resources
 - https://linuxconfig.org/how-to-manage-wireless-connections-using-iwd-on-linux
