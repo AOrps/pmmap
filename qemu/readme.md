@@ -1,5 +1,18 @@
 # qemu
 
+## Installation or Removal (apt)
+
+### Installation
+```sh
+sudo apt install qemu-system
+```
+
+### Removal
+- To remove all qemu things
+```sh
+for p in $(apt list --installed 2>/dev/null | grep 'qemu' | cut -d'/' -f1); do sudo apt remove -y $s; done
+```
+
 ## Create Image
 ### Template Command
 ```bash
