@@ -34,6 +34,7 @@ virt-install --osinfo list
 ```bash
 RAM=$((16 * 1024))
 
+### ERRORS HERE
 virt-install \
 	--name deb0 \
 	--memory ${RAM} \
