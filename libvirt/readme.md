@@ -40,7 +40,6 @@ virt-install \
 	--memory ${RAM} \
 	--disk path=/var/lib/libvirt/images/deb0.qcow2,size=20 \
 	--vcpus 4 \
-	--os-type linux \
 	--os-variant generic \
 	--console pty,target_type=serial \
 	--cdrom /var/lib/libvirt/isos/debian.iso
