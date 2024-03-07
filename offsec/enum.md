@@ -58,3 +58,4 @@ nslookup -type=TXT ops.cf.com 192.168.10.100
 # example
 whois site.com -h 10.10.0.5 
 ```
+
