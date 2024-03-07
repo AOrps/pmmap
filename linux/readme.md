@@ -12,3 +12,14 @@ xev
 
 
 ## Brightness (on Arch)
+
+
+## systemd
+
+### Figuring out Security Profile of a Unit
+```sh
+# template
+# systemd-analyze security <service>.service
+
+systemd-analyze security cups.service
+```
