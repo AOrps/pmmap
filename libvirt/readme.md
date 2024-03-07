@@ -50,6 +50,12 @@ virt-install \
 
 
 ## virsh
+### List domains
+```bash
+virsh list --all
+```
+
+
 ### Start network
 ```bash
 # sudo virsh net-start <network>
