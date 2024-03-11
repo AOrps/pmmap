@@ -16,9 +16,13 @@ meson configure
 
 - Useful options to compile with
 ```sh
-meson setup build -Dsystem=true -Ddriver_qemu=enabled -Ddriver_libvirtd=enabled -Dbash_completion=enabled -Dwireshark_dissector=enabled
+meson setup build -Dsystem=true -Ddriver_qemu=enabled -Ddriver_libvirtd=enabled -Dbash_completion=enabled -Dwireshark_dissector=enabled -Dstorage_dir=enabled -Dstorage_disk=enabled
 ```
 
+- To have more test_coverage
+```sh
+meson setup build -Dsystem=true -Ddriver_qemu=enabled -Ddriver_libvirtd=enabled -Dbash_completion=enabled -Dwireshark_dissector=enabled -Dstorage_dir=enabled -Dstorage_disk=enabled -Dtest_coverage=true -Dtests=enabled
+```
 
 - To update in order to update the build config, delete the `build` directory
 ```sh
@@ -169,6 +173,41 @@ systemctl status libvirtd
 ```ini
 RestartSec=3s
 ```
+
+### Issue with libslirp?
+- Clone, Compile and Install
+```sh
+git clone https://github.com/utmapp/libslirp.git  # use the gitlab official version
+
+meson build
+
+sudo ninja -C build install
+```
+
+## Ensure that file looks like this:
+```txt
+# /etc/libvirt/libvirt.conf
+#
+# This can be used to setup URI aliases for frequently
+# used connection URIs. Aliases may contain only the
+# characters  a-Z, 0-9, _, -.
+#
+# Following the '=' may be any valid libvirt connection
+# URI, including arbitrary parameters
+
+#uri_aliases = [
+#  "hail=qemu+ssh://root@hail.cloud.example.com/system",
+#  "sleet=qemu+ssh://root@sleet.cloud.example.com/system",
+#]
+
+#
+# These can be used in cases when no URI is supplied by the application
+# (@uri_default also prevents probing of the hypervisor driver).
+#
+uri_default = "qemu:///system"
+mode = "legacy"Place your right index finger on the fingerprint reader
+```
+
 
 ### Other issue resources
 - https://askubuntu.com/questions/1225216/failed-to-connect-socket-to-var-run-libvirt-libvirt-sock
