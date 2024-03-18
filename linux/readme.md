@@ -34,6 +34,18 @@ xev
 ## Brightness (on Arch)
 
 
+
+## OS
+- Check `/etc/os-release`
+```sh
+cat /etc/os-release
+```
+
+- Run `uname`
+```sh
+uname
+```
+
 ## systemd
 
 ### Figuring out Security Profile of a Unit
