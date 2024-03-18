@@ -2,6 +2,17 @@
 
 ## General
 
+### Speed-ups
+- **https://youtu.be/8VK9NJ3pObU?si=8-NiSu2s_akQZL34**
+
+### Aliases
+```ini
+alias k='kubectl'
+alias kaf='kubectl apply -f'
+
+```
+
+
 ### Get Yaml Config from Running Kubernetes Service
 ```sh
 # kubectl get <TYPE> <NAME> -o yaml
@@ -46,3 +57,5 @@ minikube addons enable metrics-server
 - https://www.getambassador.io/blog/how-to-run-virtual-machine-vm-local-kubernetes-cluster-guide
 - https://opensource.com/article/20/9/vms-kubernetes-kubevirt
 - https://gist.github.com/dghubble/c2dc319249b156db06aff1d49c15272e
+- https://youtu.be/8VK9NJ3pObU?si=8-NiSu2s_akQZL34
+- https://github.com/ascode-com/wiki/tree/main/certified-kubernetes-administrator
