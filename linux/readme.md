@@ -43,3 +43,8 @@ xev
 
 systemd-analyze security cups.service
 ```
+
+### List systemd services (units)
+```
+systemctl list-units --type=service
+```
