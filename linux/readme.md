@@ -60,3 +60,16 @@ systemd-analyze security cups.service
 ```
 systemctl list-units --type=service
 ```
+
+
+## Package Managers
+
+### Yum
+- CentOS
+
+
+- Installing a package: `yum install <pkg>`
+- whatprovides: `yum whatprovides <pkg/binary>`
+
+## Networking
+- Routing Table: `route`
