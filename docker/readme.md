@@ -23,3 +23,28 @@ sudo systemctl enable docker
 pacman -S docker docker-buildx
 ```
 
+- Debian
+```
+apt install docker
+```
+
+
+## General
+
+## Docker Filesystem
+- Located in `/var/lib/docker`
+```tree
+/var/lib/docker/
+├── buildkit
+├── containers      ; all files related to containers
+├── image           ; files related to images
+├── network
+├── overlay2
+├── plugins
+├── runtimes
+├── swarm
+├── tmp
+└── volumes         ; volumes created by docker
+```
+
+
