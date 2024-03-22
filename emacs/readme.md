@@ -39,7 +39,7 @@
 | `C-w`   | Destructive copy to clipboard
 | `M-w`   | Non-destructive Copy to clipboard
 | `C-y`   | Paste from Clipboard
-
+| `C-x-i` | Insert from file
 
 - To do the opposite of some commands try to do `C--`, this works to 'negate' commands
 
