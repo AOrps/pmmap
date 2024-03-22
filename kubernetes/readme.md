@@ -28,6 +28,20 @@ kubectl run -i --tty --image debian:bookworm --restart=Never -- <POD_NAME>
 ```
 - Reference: https://blog.flowlab.no/running-a-debian-pod-on-kubernetes-with-kubectl-beb349b40ff2
 
+
+## Kubernetes Interfaces
+- The following are Interfaces are:
+  - CRI : Container Runtime Interface ~ work with container interfaces
+	- Examples: `docker`, `rkt`, `cri-o`
+  - CNI : Container Network Interface ~ work with network interface
+	- Examples: `weaveworks`, `flannel`, `cilium`
+  - CSI : Container Storage Interface 
+	- Examples: `amazon ebs`, `glusterfs`
+	- Not a kubernetes standard, it's a universal standard. RPCs that follow a specification for CSIs
+
+
+
+
 ## Minikube
 ### Changing to the `docker` driver
 ```bash
