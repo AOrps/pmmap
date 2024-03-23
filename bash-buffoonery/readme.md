@@ -99,3 +99,26 @@ git push origin $(git branch --show-current)
 
 ### Resources
 - https://linuxconfig.org/how-to-manage-wireless-connections-using-iwd-on-linux
+
+## jq
+```sh
+cat test.json
+``````out
+{
+  "rollingUpdate": {
+    "maxSurge": "25%",
+    "maxUnavailable": "25%"
+  },
+  "type": "RollingUpdate"
+}
+```
+
+```sh
+cat test.json | jq .type
+``````out
+"RollingUpdate"
+```
+
+## jpath (jsonpath) 
+- kinda helpful, but `jq` is better : https://github.com/json-path/JsonPath
+
