@@ -9,7 +9,6 @@
 ```ini
 alias k='kubectl'
 alias kaf='kubectl apply -f'
-
 ```
 
 
@@ -29,6 +28,10 @@ kubectl run -i --tty --image debian:bookworm --restart=Never -- <POD_NAME>
 - Reference: https://blog.flowlab.no/running-a-debian-pod-on-kubernetes-with-kubectl-beb349b40ff2
 
 
+## Cluster Architecture
+- 
+
+
 ## Kubernetes Interfaces
 - The following are Interfaces are:
   - CRI : Container Runtime Interface ~ work with container interfaces
@@ -39,6 +42,14 @@ kubectl run -i --tty --image debian:bookworm --restart=Never -- <POD_NAME>
 	- Examples: `amazon ebs`, `glusterfs`
 	- Not a kubernetes standard, it's a universal standard. RPCs that follow a specification for CSIs
 
+
+## Custom Columns
+- Columns are created around the json output
+  - Do `k -n <NAMESPACE> get <RESOURCE> -o json`, ex: `k -n aground get deploy -o json`
+
+```
+k -n aground get deploy -o custom-columns="DEPLOYMENT:metadata.name,IMAGE:.spec.template.spec.containers[0].image,READY_REPLICAS:status.replicas,NAMESPACE:metadata.namespace"
+```
 
 
 
