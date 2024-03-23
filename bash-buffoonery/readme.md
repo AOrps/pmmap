@@ -145,6 +145,9 @@ cat test.json | jq .type
 
 
 ### Example 2
+<details>
+<summary>example test file</summary>
+
 ```
 {
     "prizes": [
@@ -201,10 +204,14 @@ cat test.json | jq .type
 
 ```
 
+</details>
+
+- Command
 ```sh
 cat test-ex2.json | jpath '$.prizes.*.laureates[?(@.id=="914")]'
 ```
 
+- Output
 
 ```out
 [
