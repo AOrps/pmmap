@@ -10,8 +10,29 @@
 | [SMTP](#smtp)
 | [SNMP](#snmp)
 | [whois](#whois)
+| [gobuster](#gobuster)
 
 ## nmap 
+
+```sh
+# Basic Functionality for all ports and more speed
+nmap -T4 -p- <TARGET>
+```
+
+
+### Service Discovery
+```sh
+# nmap -p80,443 -sV <IP>
+nmap -p80 -sV 10.10.50.5
+```
+
+### NSE Scripts
+#### HTTP Enumeration via nmap
+```sh
+nmap -p80,443 --script=http-enum <IP>
+```
+
+
 
 ## dns
 - Linux Tools: `host`,`dnsrecon`,`dnsenum`
@@ -59,3 +80,13 @@ nslookup -type=TXT ops.cf.com 192.168.10.100
 whois site.com -h 10.10.0.5 
 ```
 
+## gobuster
+```sh
+#General Template
+
+gobuster dir -u 10.10.50.5 -w /usr/share/wordlists/dirb/common.txt -t 2
+# use `dir` mode (enumerates files and directories
+# `-u` : target
+# `-w` : wordlist location on machine
+# `-t` : threads (more is noisier but faster) (default is 10)
+```
