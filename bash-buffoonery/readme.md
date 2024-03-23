@@ -122,3 +122,23 @@ cat test.json | jq .type
 ## jpath (jsonpath) 
 - kinda helpful, but `jq` is better : https://github.com/json-path/JsonPath
 
+- if `test.json` looks like: 
+```out
+{
+    "car": {
+        "color": "blue",
+        "price": "$20,000"
+    },
+    "bus": {
+        "color": "white",
+        "price": "$120,000"
+    }
+}
+```
+
+- then `cat test.json | jpath $.car.price` looks like:
+```out
+[
+  "$20,000"
+]
+```
