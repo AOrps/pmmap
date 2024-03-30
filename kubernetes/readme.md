@@ -28,11 +28,19 @@ kubectl run -i --tty --image debian:bookworm --restart=Never -- <POD_NAME>
 - Reference: https://blog.flowlab.no/running-a-debian-pod-on-kubernetes-with-kubectl-beb349b40ff2
 
 
-## Cluster Architecture
+
+### Cluster Architecture
 - 
 
 
-## Kubernetes Interfaces
+### ETCD
+- Distributed reliable key-value store
+- Typically runs on port `2379`
+
+
+
+
+### Kubernetes Interfaces
 - The following are Interfaces are:
   - CRI : Container Runtime Interface ~ work with container interfaces
 	- Examples: `docker`, `rkt`, `cri-o`
@@ -43,7 +51,9 @@ kubectl run -i --tty --image debian:bookworm --restart=Never -- <POD_NAME>
 	- Not a kubernetes standard, it's a universal standard. RPCs that follow a specification for CSIs
 
 
-## Custom Columns
+
+### Data Visualization Manipulation in `kubectl`
+#### Custom Columns
 - Columns are created around the json output
   - Do `k -n <NAMESPACE> get <RESOURCE> -o json`, ex: `k -n aground get deploy -o json`
 
@@ -51,6 +61,33 @@ kubectl run -i --tty --image debian:bookworm --restart=Never -- <POD_NAME>
 k -n aground get deploy -o custom-columns="DEPLOYMENT:metadata.name,IMAGE:.spec.template.spec.containers[0].image,READY_REPLICAS:status.replicas,NAMESPACE:metadata.namespace"
 ```
 
+### Json Path Example in `kubectl`
+- `$` is not mandatory as kubectl adds it.
+  - `kubectl get pods -o=jsonpath='{ .items[0].spec.containers[0].image }'`
+
+You can also do:
+  - `kubectl get pods -o=jsonpath='{ .items[0].spec.containers[0].image } {"\n"} {.items[*].capacity.cpu}'` (rows)
+  - `kubectl get pods -o=jsonpath='{range .items[*]}{.spec.containers[0].image } {"\t"} {.capacity.cpu}{"\n"}{end}'` (columns)
+  - Use custom-columns instead of loop when working with columns
+
+### kube-config show different output
+- If `~/.kube/config`, you can view the output differently via: `kubectl config view --kubeconfig=~/.kube/config -o json`
+
+- Get a nested value: ` k config view --kubeconfig=~/.kube/config -o jsonpath='{ .contexts[?(.context.user=="dara")] 
+}' | jq`
+```json
+{
+  "context": {
+    "cluster": "closed-based",
+    "user": "dara"
+  },
+  "name": "dara@closed-based"
+}
+```
+
+### `Sort-by` option in `kubectl`
+- :x: `k get pv --sort-by=.items[*].spec.capacity.storage`
+: :heavy_check_mark: `k get pv --sort-by=.spec.capacity.storage`
 
 
 ## Minikube
