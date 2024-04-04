@@ -27,18 +27,139 @@ kubectl run -i --tty --image debian:bookworm --restart=Never -- <POD_NAME>
 ```
 - Reference: https://blog.flowlab.no/running-a-debian-pod-on-kubernetes-with-kubectl-beb349b40ff2
 
+### Kubernetes Architecture
+#### Kubernetes Architecture
+
+- **kube-api server**:
+
+```mermaid
+---
+title: Kubernetes Architecture, from kube-api server
+---
+flowchart LR
+
+    user[User] --1. Authenticate User--- kube_apiserver
+
+    subgraph a[Control Plane]
+        a_define[Master\nManage, Plan, Schedule, Monitor Nodes]
+
+        kube_apiserver --2.Validate Request--- kube_apiserver
+
+        kube_apiserver[kube-apiserver] --3.Retrieve Data--- etcd_cluster[ETCD Cluster]
+
+        etcd_cluster --4. Update ETCD--- etcd_cluster
+
+        kube_apiserver --5. Scheduler--- kube_scheduler[kube-scheduler]
+        controller_manager[Controller-manager]
+    end
+
+    subgraph workers[Worker nodes]
+        
+        subgraph b[Worker Node #1]
+            b_define[Worker Nodes\nHost Application as Containers]
+            kube_apiserver --6. Kubelet--- kubelet_b[kubelet]
+            cre_b[Container Runtime Engine]
+        end
+
+        subgraph c[Worker Node #2]
+            c_define[Worker Nodes\nHost Application as Containers]
+            kube_apiserver --6. Kubelet--- kubelet_c[kubelet]
+            cre_c[Container Runtime Engine]
+        end
+    end
+
+   
+    style a fill:#0000,stroke:orange
+    style a_define fill:orange,stroke:#0000,color:white
+    style b fill:#0000,stroke:#8deb00
+    style b_define fill:#8deb00,stroke:#0000,color:white
+    style c fill:#0000,stroke:#8deb00
+    style c_define fill:#8deb00,stroke:#0000,color:white
+    style workers fill:#0000,stroke:#0000
+```
+
+- Kube-api server: 
+
+1. Authenticate User 
+2. Validate Request 
+3. Retrieve data
+4. Update ETCD
+5. Scheduler
+6. Kubelet
+
+* The scheduler continuously monitors the apiserver for updates
+
+- **Kube Controller Manager**:
+  - **Watch Status** & **Remediate Situation**
+  - `kube-controller-manager.service`
+  - Node-Controller
+	- Node Monitor Period, Node Monitor Grace Period, POD Eviction Timeout 
+  - Replication-Controller
+	- Ensures the number of replicas are met
+  - ... (lots of other controllers)
+
+- **Kube Scheduler**:
+  - Only decides which pod goes where`
+  - Process:
+	1. Filter Nodes
+	1. Rank Nodes
+
+- **Kubelet**
+  - Does the following: Registers Node, Create PODs, Monitor Node & PODs
+
+- **Kube-proxy**
+  - Runs on each node on kubes cluster and forwards traffic via IP Tables Rules
+  
+- **Pods**
+  - have a 1:1 relationship with containers (or is the default)
+  - 4 required top-level values: `apiVersion`, `kind`, `metadata`, `spec`
+
 
 
 ### Cluster Architecture
 - 
 
 
+
 ### ETCD
 - Distributed reliable key-value store
 - Typically runs on port `2379`
 
+#### Installation (v3.5)
+- Build from Source
+```
+git clone -b v3.5.12 https://github.com/etcd-io/etcd.git
+cd etcd
+./build.sh
+export PATH="$PATH:`pwd`/bin"
+etcd version
+```
+
+- If `v2.*`, use `etcd --version`
 
 
+- Reference: https://etcd.io/docs/v3.5/install/
+
+#### Quick Usage
+- Setup etcd "listener" 
+```
+PRIVATE_IP=127.0.0.1
+etcd --listen-client-urls=http://$PRIVATE_IP:2379    --advertise-client-urls=http://$PRIVATE_IP:2379
+```
+
+- Adding a new kv pair
+```
+etcdctl put key1 value1
+```
+
+- Retrieve a kv pair
+```
+etcdctl get key1
+```
+
+#### Deeper Usage
+- ETCD Backup (v3): `etcdctl snapshot save` 
+- Get Cluster Health: `etcdctl endpoint health`
 
 ### Kubernetes Interfaces
 - The following are Interfaces are:
