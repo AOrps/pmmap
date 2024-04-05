@@ -18,6 +18,12 @@ alias kaf='kubectl apply -f'
 kubectl get deploy deploymentName -o yaml
 ```
 
+### Dry run - Yaml Output
+```sh
+# For Pod 
+k run poddy --image=nginx --dry-run=client -o yaml
+```
+
 
 ### Run Debian from Kubernetes
 ```sh
@@ -113,6 +119,12 @@ flowchart LR
 - **Pods**
   - have a 1:1 relationship with containers (or is the default)
   - 4 required top-level values: `apiVersion`, `kind`, `metadata`, `spec`
+
+- **Replica Set**
+  - helps keep multiple instances within a cluster, adds to HA (high availability)
+  - helps with load balancing and scaling across nodes in a cluster
+  - 4 required top-level values: `apiVersion`, `kind`, `metadata`, `spec`
+
 
 
 
