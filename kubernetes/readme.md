@@ -120,13 +120,107 @@ flowchart LR
   - have a 1:1 relationship with containers (or is the default)
   - 4 required top-level values: `apiVersion`, `kind`, `metadata`, `spec`
 
-- **Replica Set**
+- **Replica Set** / (**ReplicationController**)
   - helps keep multiple instances within a cluster, adds to HA (high availability)
   - helps with load balancing and scaling across nodes in a cluster
   - 4 required top-level values: `apiVersion`, `kind`, `metadata`, `spec`
+	- within `spec` and under `template` only containing the `metadata` and `spec` part of a pod config 
+  - the difference between **ReplicaSet** and **ReplicationController** is the `selector` field. It is required in the **ReplicaSet**, when skipped in the **ReplicationController** is assumes it is the `labels` within the `metadata` field.
+  - Ensure that there are **x** active pods at any time.
+  - Can be used to monitor pods and deploy new ones. (Can filter by labels and selectors)
+
+- using this as the `<POD template>`
+```yaml
+metadata:
+  name: myapp-rs | myapp-rc
+  labels:
+    app: app-deluxe
+	type: front-end
+spec:
+  containers:
+  - name: nginx-nom
+    image: nginx
+```
 
 
+```yaml 
+# file: rc-defn.yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: myapp-rc
+  labels:
+    app: app-deluxe
+	type: front-end
+spec:
+  template:
+    <POD template>
+```
 
+```yaml 
+# file: rs-defn.yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: myapp-rs
+  labels:
+    app: app-deluxe
+	type: front-end
+spec:
+  replicas: 3
+  selector: 
+    matchLabels:
+	  type: front-end 
+  template:
+	<POD template>
+```
+
+ - How to scale replicasets?
+   - update `replicas: 3` line to a higher number in the file, like `replicas: 8`
+   - `kubectl scale --replicas=6 -f rs-defn.yaml`
+   - temporary solution: `kubectl scale --replicas=6 replicaset myapp-rs` (it won't change what's on the definition file)
+ - cmds:
+   - create: `k create -f <defn-file.yaml> # rs-defn.yaml`
+   - list  : `k get replicaset`
+   - delete: `k delete replicaset myapp-rs`
+   - replace: `k replace -f <new-defn-file.yaml> # rs-defn_v2.yaml`
+   - scale : `k scale --replicas -f <defn.yaml> # rs-defn.yaml`
+ - need to ensure you delete the previous `<defn-file.yaml>` before replacing it
+
+
+- **Deployments**
+ - upgrade the underlying instances seamlessly
+ - `k get all`
+
+
+```yaml
+# file: deploy-defn.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deploy
+  labels:
+    type: frontend
+spec:
+  template:
+    metadata:
+	  name: app-pod
+	  labels:
+	    type: frontend
+	spec:
+	- containers: app-nginx
+	  image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+	  type: frontend
+```
+
+- **Services**
+  - enable connectivity among components within a cluster
+  - Services Types: `NodePort`, `ClusterIP`, `LoadBalancer`
+    - `NodePort` --> Makes an internal pod accessible via port
+	- `ClusterIP` --> makes virtual ip within the cluster
 
 ### Cluster Architecture
 - 
