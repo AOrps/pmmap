@@ -21,9 +21,15 @@ kubectl get deploy deploymentName -o yaml
 ### Dry run - Yaml Output
 ```sh
 # For Pod 
-k run poddy --image=nginx --dry-run=client -o yaml
+k run nginx --image=nginx --dry-run=client -o yaml
 ```
 
+
+## Update Objects
+- `k edit|replace|create|delete ...`
+
+- Imperative: `k expose pod nginx --type=NodePort --port=80 --name=nginx-service --dry-run=client -o yaml`
+- Declarative: `k create svc nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml`
 
 ### Run Debian from Kubernetes
 ```sh
@@ -220,7 +226,97 @@ spec:
   - enable connectivity among components within a cluster
   - Services Types: `NodePort`, `ClusterIP`, `LoadBalancer`
     - `NodePort` --> Makes an internal pod accessible via port
+	  - Local Laptop: `30008`
+	  - Service and Pod Port: `80` 
 	- `ClusterIP` --> makes virtual ip within the cluster
+	- `Loadbalancing` --> balance traffic
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  type: NodePort
+  ports:
+  - targetPort: 80   # pod port
+    port: 80         # service port
+	nodePort: 30008  # local machine port
+  selector:
+    type: frontend
+```
+
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-svc-cs
+spec:
+  type: ClusterIP
+  ports:
+  - targetPort: 80
+    port: 80
+  selector:
+    type: frontend
+```
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-svc-lb
+spec:
+  type: LoadBalancer
+  ports:
+  - targetPort: 80   # pod port
+    port: 80         # service port
+	nodePort: 30008  # local machine port
+
+```
+
+- **Namespace**
+  - Segmentation amongst resources within a cluster
+  - `k create ns ns0`: creates a namespace called `ns0`
+  - Switching contexts: `kubectl config set-context $(kubectl config current-context) --namespace=dev`
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns0
+```
+
+- **ResourceQuota**
+  - to set quota on resources being allocated to a namespace, use resource quota
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-quota
+  namespace: ns0
+spec:
+  hard:
+    pods: "10"
+	requests.cpu: "4"
+	requests.memory: 5Gi
+	limits.cpu: "10"
+	limits.memory: 10Gi
+```
+
+- **Monitoring Metrics**
+  - `k top node`: show resource consumption of nodes
+  - `k top pod`: show resource consumption of pod
+  
+  
+- **Logs**
+  - Docker: `docker log`
+  - kubectl: `kubectl logs`
+	- for streaming: `kubectl logs -f ...`
+	- if there are mutliple containers within a pod, you need to be specific on which container within the pod.
+
+
 
 ### Cluster Architecture
 - 
@@ -286,6 +382,11 @@ etcdctl get key1
 
 ```
 k -n aground get deploy -o custom-columns="DEPLOYMENT:metadata.name,IMAGE:.spec.template.spec.containers[0].image,READY_REPLICAS:status.replicas,NAMESPACE:metadata.namespace"
+```
+
+### Create Pod and Expose it ClusterIP svc
+```sh
+k run <POD_NAME> --image=nginx --expose --port=8080 --dry-run=client -o yaml
 ```
 
 ### Json Path Example in `kubectl`
