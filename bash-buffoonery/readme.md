@@ -224,3 +224,17 @@ cat test-ex2.json | jpath '$.prizes.*.laureates[?(@.id=="914")]'
   }
 ]
 ```
+
+## Generate random things
+- Using `pwgen`
+```sh
+# ubuntu lib: pwgen
+# sudo apt install pwgen
+
+pwgen -s 50 1
+```
+
+- Using `openssl rand`
+```sh
+openssl rand -base64 36
+```
