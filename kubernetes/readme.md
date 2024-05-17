@@ -11,6 +11,20 @@ alias k='kubectl'
 alias kaf='kubectl apply -f'
 ```
 
+### Completion
+```
+# for linux
+
+# Enable kubectl autocompletion with Bash
+echo 'source <(kubectl completion bash)' >>~/.bashrc
+
+# kubectl auto completes
+echo 'alias k=kubectl' >>~/.bashrc
+echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
+
+```
+- Reference: https://kubernetes.io/docs/reference/kubectl/generated/kubectl_completion/
+
 
 ### Get Yaml Config from Running Kubernetes Service
 ```sh
@@ -316,6 +330,9 @@ spec:
 	- for streaming: `kubectl logs -f ...`
 	- if there are mutliple containers within a pod, you need to be specific on which container within the pod.
 
+### Scheduling
+- Kubernetes looks for resources without the `nodeName` field and then will. 
+- Can't modify an existing pod with the `nodeName` field
 
 
 ### Cluster Architecture
