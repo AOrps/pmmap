@@ -332,8 +332,55 @@ spec:
 
 ### Scheduling
 - Kubernetes looks for resources without the `nodeName` field and then will. 
-- Can't modify an existing pod with the `nodeName` field
+- Can't modify an existing pod with the `nodeName` field, however can delete and modify that resource and then apply it to the cluster.
 
+- `kubectl get nodes`  --> List the number of nodes in the cluster
+  - If `node` is in an `<none>` state, it might be clue that the scheduler hasn't scheduled it
+  
+- `kubectl get po --watch`: watch status
+
+- Things can be grouped by **labels** (group) & **selectors** (filter)
+- Filter via `k get po --selector app=backend`. 
+  - Also can do something like this: `k get po --selector app=backend,group=accounting`
+- `labels` have to match with the `selector` in the `spec` field
+
+- `annotations` can also be used for more details about an object.
+
+- To get all things running, do: `k get all`
+
+- To just show the resources do: `k get po --no-headers`
+
+
+- **Taints** and **Tolerations**: set restrictions on pods that can be scheduled on a node 
+  - taint: filter out pod on a node (set on nodes)
+	- `k taint nodes node-name key=value:<taint-effect>`
+		- There are 3 values for taint-effect: `NoSchedule` | `PreferNoSchedule` | `NoExecute`
+  - tolerations: allows the filter (set on pods)
+- by default, there are no tolerations on pods
+
+#### Example Tolerations Yaml
+```yaml
+# to taint `k taint nodes node1 app=backend:NoSchedule`
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod
+spec:
+  containers:
+  - image: nginx
+    name: pod
+  tolerations:
+  - key: "app"
+    operator: "Equal"
+	value: "backend"
+	effect: "NoSchedule"
+```
+
+- taints and tolerations doesn't tell a pod where it can go, it only allows for restriction or acceptance of pods on a node.
+
+- master keeps the management workloads. it has a taint on it to prevent a pod from being scheduled on it.
+
+- dump a controlplane: `k get nodes controlplane -o yaml`
 
 ### Cluster Architecture
 - 
