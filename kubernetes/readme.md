@@ -382,6 +382,26 @@ spec:
 
 - dump a controlplane: `k get nodes controlplane -o yaml`
 
+
+
+
+## Monitoring & Logging 
+- One Metrics Server (in-memory storage)
+
+- Kubelet contains `cAdvisor` to get 
+
+- To use `metrics-server`,
+  - On `minikube`: `minikube addons enable metrics-server`
+  - Others, Clone from Repository: 
+	- `git clone https://github.com/kubernetes-sigs/metrics-server.git`
+	- `kubectl create -f deploy/...`
+
+- View resource consumption for nodes or pods: `k top no|po`
+
+- Application Logs
+  - `k logs <pod>`, must specify name of the container within a pod (if there are multiple)
+
+
 ### Cluster Architecture
 - 
 
