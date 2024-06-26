@@ -44,8 +44,8 @@
 - To do the opposite of some commands try to do `C--`, this works to 'negate' commands
 
 - Within, emacs `term`, `(M-X) term`:
-  - `C-c j`: line run (can switch between things) but can't use sysints or delete without mucking about
-  - `C-c k`: char run (can't switch between things) but can use sysints (^C, ^L, ...) and delete
+  - `C-c C-j`: line run (can switch between things) but can't use sysints or delete without mucking about
+  - `C-c C-k`: char run (can't switch between things) but can use sysints (^C, ^L, ...) and delete
 
 - Within i-search, `C-s`:
   - `C-s`: go to the end of next match
