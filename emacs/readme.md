@@ -69,6 +69,10 @@
 | `(term ...)` | open terminal in emacs
 | `(list-packages)` | search available packages for emacs
 | `(man ...)` | get man pages
+| `(doctor ...)` | talk to a psychotherapist in emacs
+| `(query-replace ...)` | looks for all instances of <QUERY> then iteratively goes thru each instance for replacement  
+| `(compile ...)` | custom build from emacs
+| `(erc ...) ` | irc in emacs
 
 
 ## Melpa
