@@ -40,6 +40,8 @@
 | `M-w`   | Non-destructive Copy to clipboard
 | `C-y`   | Paste from Clipboard
 | `C-x-i` | Insert from file
+| `C-v`   | Scroll down (page)
+| `M-v`   | Scroll  up  (page)
 
 - To do the opposite of some commands try to do `C--`, this works to 'negate' commands
 
