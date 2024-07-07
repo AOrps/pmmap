@@ -26,6 +26,21 @@ echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 - Reference: https://kubernetes.io/docs/reference/kubectl/generated/kubectl_completion/
 
 
+### :x: `man ...` --> :heavy_check_mark: `k explain ...`
+```
+kubectl explain <api-resource>
+
+# example:
+k explain rs
+```
+- This is used to get some more information about an api-resource. Enumerates the kind, version, group and more documentation of the group internally.
+
+
+### Change to new namespace
+```sh
+k config set-context $(kubectl config current-context) --namespace=<NEW_NAMESPACE>
+```
+
 ### Get Yaml Config from Running Kubernetes Service
 ```sh
 # kubectl get <TYPE> <NAME> -o yaml
@@ -406,6 +421,19 @@ spec:
 - 
 
 
+## Networking
+### Switching
+- To see Network Interface (`ip link`)
+
+### Routing
+- Router connects to multiple networks
+
+### Gateway
+- To display the kernel's routing commands, run `route` 
+
+- To check if ip routing is configured:
+  - `cat /proc/sys/net/ipv4/ip_forward` --> 0 (no), 1 (yes)
+  - edit via: `nano /etc/sysctl.conf`
 
 ### ETCD
 - Distributed reliable key-value store
