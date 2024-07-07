@@ -142,3 +142,99 @@ cat test.json | jq .type
   "$20,000"
 ]
 ```
+
+
+### Example 2
+<details>
+<summary>example test file</summary>
+
+```
+{
+    "prizes": [
+        {
+            "year": "2018",
+            "category": "physics",
+            "overallMotivation": "\"for groundbreaking inventions in the field of laser physics\"",
+            "laureates": [
+                {
+                    "id": "960",
+                    "firstname": "Arthur",
+                    "surname": "Ashkin",
+                    "motivation": "\"for the optical tweezers and their application to biological systems\"",
+                    "share": "2"
+                },
+                {
+                    "id": "961",
+                    "firstname": "Gérard",
+                    "surname": "Mourou",
+                    "motivation": "\"for their method of generating high-intensity, ultra-short optical pulses\"",
+                    "share": "4"
+                },
+                {
+                    "id": "962",
+                    "firstname": "Donna",
+                    "surname": "Strickland",
+                    "motivation": "\"for their method of generating high-intensity, ultra-short optical pulses\"",
+                    "share": "4"
+                }
+            ]
+        },
+        {
+            "year": "2018",
+            "category": "chemistry",
+            "laureates": [
+                {
+                    "id": "963",
+                    "firstname": "Frances H.",
+                    "surname": "Arnold",
+                    "motivation": "\"for the directed evolution of enzymes\"",
+                    "share": "2"
+                },
+				  {
+    "id": "914",
+    "firstname": "Malala",
+    "surname": "Yousafzai",
+    "motivation": "\"for their struggle against the suppression of children and young people and for the right of all children to education\"",
+    "share": "2"
+  }
+  ]
+  }
+  ]
+  }
+
+```
+
+</details>
+
+- Command
+```sh
+cat test-ex2.json | jpath '$.prizes.*.laureates[?(@.id=="914")]'
+```
+
+- Output
+
+```out
+[
+  {
+    "id": "914",
+    "firstname": "Malala",
+    "surname": "Yousafzai",
+    "motivation": "\"for their struggle against the suppression of children and young people and for the right of all children to education\"",
+    "share": "2"
+  }
+]
+```
+
+## Generate random things
+- Using `pwgen`
+```sh
+# ubuntu lib: pwgen
+# sudo apt install pwgen
+
+pwgen -s 50 1
+```
+
+- Using `openssl rand`
+```sh
+openssl rand -base64 36
+```
